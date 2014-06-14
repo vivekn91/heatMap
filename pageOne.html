@@ -14,8 +14,24 @@
          
         </style>
 
-        <script>
-          
+            <script>
+            var data = [1, 2, 3, 4, 5];
+           var chartDiv= d3.select("#chart");
+            
+                   
+            chartDiv.selectAll("div")
+                    .data(data)
+                    .enter().append("div")
+                    //.attr("class", "rect")
+                    .style("width", "30px")
+                    .style("height", "30px")
+                    .style("border", "#f5f5f5 1px solid")
+                    .text(function(d) {
+                        return d;
+                    })
+                            .style("background-color",function(d){return d3.hsl(120,1,d/5).toString()})
+                            .style("float","left");
+
         </script>
     </body>
 </html>
