@@ -1,7 +1,7 @@
 heatMap
 =======
 
-d3Extention
+d3Extension
 
 D3 experiments
 
