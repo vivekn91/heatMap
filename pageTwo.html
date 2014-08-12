@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="d3.v3.min.js"></script>
+    </head>
+    <body>
+        <div>D3 Experiments</div>
+
+        <div id="chart">
+
+        </div>
+
+        <style type="text/css">
+            text{
+                color:#333;
+                cursor: pointer;
+            }
+        </style>
+
+        <script>
+            var data = [1, 2, 3, 4, 5];
+            var data2 = [
+                {"name": "vivek", "size": 9},
+                {"name": "For", "size": 7},
+                {"name": "Loop", "size": 19},
+                {"name": "While", "size": 7},
+                {"name": "do", "size": 3},
+                {"name": "if", "size": 6},
+                {"name": "else if", "size": 2},
+                {"name": "switch", "size": 6},
+                {"name": "case", "size": 9}
+            ];
+            var w = 960,
+                    h = 500,
+//                    nodes = [],
+                    nodes = data2,
+                    node,
+                    color = d3.scale.category20c();
+
+            var vis = d3.select("#chart").append("svg")
+                    .attr("width", w)
+                    .attr("height", h);
+
+            var force = d3.layout.force()
+                    .nodes(nodes)
+//                    .links([])
+                    .size([w, h])
+                    .distance(40)
+                    .charge(-40);
+
+            force.on("tick", function(e) {
+                vis.selectAll("text")
+                        .attr("x", function(d) {
+                            return  d.x;
+                        })
+                        .attr("y", function(d) {
+                            return  d.y;
+                        });
+            });
+
+            force.start();
+
+            vis.selectAll("text")
+                    .data(nodes)
+                    .enter().append("text")
+                    .attr("x", function(d) {
+                        return  d.x;
+                    })
+                    .attr("y", function(d) {
+                        return  d.y;
+                    })
+                    .style("fill", function(d) {
+                        return color(d.name);
+                    })
+                    .style("stroke", function(d) {
+                        return color(d.name);
+                    })
+//                    .style("stroke-width", "1.5px")
+                    .style("font-size", function(d) {
+                        var sizeT = (d.size < 12) ? 12 : d.size
+                        return sizeT + "px";
+                    })
+                    .text(function(d) {
+                        return d.name;
+                    })
+                    .call(force.drag);
+
+
+        </script>
+    </body>
+</html>
